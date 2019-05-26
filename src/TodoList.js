@@ -24,6 +24,7 @@ class TodoList extends Component {
   };
 
   render() {
+    debugger;
     let todos = this.props.todos.map((val, index) => (
       <Todo
         removeTodo={this.removeTodo.bind(this, val.id)}
@@ -50,6 +51,7 @@ class TodoList extends Component {
 }
 
 function mapStateToProps(reduxState) {
+  debugger;
   return {
     todos: reduxState.todos
   };
