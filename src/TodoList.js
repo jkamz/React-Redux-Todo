@@ -3,24 +3,41 @@ import Todo from "./Todo";
 import { connect } from "react-redux";
 
 class TodoList extends Component {
+  state = {
+    task: ""
+  };
   handleSubmit = event => {
     event.preventDefault();
+    this.props.dispatch({
+      type: "ADD_TODO",
+      task: this.state.task
+    });
+    event.target.reset();
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
   render() {
-    let todos = this.props.todos.map((task, index) => (
-      <Todo task={task} key={index} />
+    let todos = this.props.todos.map((val, index) => (
+      <Todo task={val.task} key={index} />
     ));
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="task">Task</label>
-          <input type="text" name="task" id="task" />
+          <input
+            type="text"
+            name="task"
+            id="task"
+            onChange={this.handleChange}
+          />
           <button>Add a Todo</button>
         </form>
-        <div>
-          <ul>{todos}</ul>
-        </div>
+        <ul>{todos}</ul>
       </div>
     );
   }
